@@ -1,0 +1,15 @@
+Incluir a biblioteca stdlib.h e string.h no arquivo hash.c.
+Incluir o arquivo de cabeçalho hash.h no arquivo indiceInvertido.c.
+Definir a função criahash no arquivo hash.c, que irá criar a tabela hash vazia e inicializar todos os seus elementos com o valor NULL.
+Definir a função hash no arquivo hash.c, que irá calcular o hash da chave passada como argumento.
+Definir a função insere no arquivo hash.c, que irá inserir um novo documento na tabela hash.
+Definir a função busca no arquivo hash.c, que irá buscar por um documento na tabela hash.
+Definir a função consulta no arquivo hash.c, que irá retornar uma lista com todos os documentos associados a uma determinada chave.
+Definir a função libera no arquivo hash.c, que irá liberar toda a memória alocada para a tabela hash.
+Incluir o arquivo de cabeçalho hash.h no arquivo main.c.
+Criar uma tabela hash com a função criahash.
+Ler as chaves e os documentos do usuário.
+Inserir os documentos na tabela hash com a função insere.
+Buscar por um documento na tabela hash com a função busca.
+Consultar por todos os documentos associados a uma chave com a função consulta.
+Liberar a memória alocada para a tabela hash com a função libera.

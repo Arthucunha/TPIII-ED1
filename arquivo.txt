@@ -1,0 +1,122 @@
+estrutura de hash com endereçamento aberto.
+O seu programa deve ser adaptado para medir o desempenho, em termos do tempo de execução e do
+consumo de memória. Além disso, utilize contadores para determinar o número de comparações de chaves
+(colisões) para montar o índice invertido.
+Após a construção do índice invertido, implemente um programa que permita que sejam realizadas
+consultas de um ou mais termos na coleção de documentos considerada. O objetivo é, dado uma consulta,
+retornar um vetor de documentos ordenados lexicograficamente pelo nome. Portanto, o programa além
+de realizar a operação de criar um índice invertido dado um arquivo de palavras-chave e deve também
+realizar as seguintes operações:
+
+a) Realizar consultas com um ou mais termos: Deve retornar uma lista com os nomes dos documentos
+que contêm qualquer um dos termos.
+
+b) Imprimir o índice invertido: Imprime as palavras, uma por linha e à frente de cada palavra, você
+deve imprimir a lista das ocorrências. Para cada elemento da lista, você deve imprimir o nome do
+documento (e não o identificador).
+
+
+Detalhes da implementação:
+Para atingir o seu objetivo, você deverá construir um Tipo Abstrato de Dados (TAD) IndiceInvertido
+como representação de um índice invertido implementado com Hash de endereçamento aberto.
+O TAD IndiceInvertido deverá implementar, pelo menos, as seguintes operações:
+1. aloca: aloca o TAD IndiceInvertido.
+2. libera: libera o TAD IndiceInvertido.
+3. insereDocumento: insere um documento baseado na chave no TAD IndiceInvertido.
+4. busca: retorna o índice de uma chave no TAD IndiceInvertido.
+5. consulta: baseado em uma ou mais chaves, retorna o nome dos documentos que contêm todas as
+chaves no índice invertido presente no TAD IndiceInvertido.
+6. imprime: imprime o índice invertido presente no TAD IndiceInvertido.
+
+Alocação de um ou mais TADs IndiceInvertido fica a critério do aluno.
+O TAD deve ser implementado utilizando a separação interface no .h e implementação .c discutida em
+sala, bem como as convenções de tradução. Caso a operação possa dar errado, devem ser definidos retornos
+com erro, tratados no corpo principal.
+Fica a seu critério o uso ou não de uma estrutura para armazenar o vocabulário e se serão usados os
+nomes dos arquivos ou identificadores numéricos dentro do índice invertido.
+O código-fonte deve ser modularizado corretamente em cinco arquivos: tp.c, indiceInvertido.h, indiceInvertido.c, hash.c e hash.c. O arquivo tp.c deve apenas invocar, tratar as respostas das funções e procedimentos definidos no arquivo indiceInvertido.h e impressões necessárias. A separação das operações em funções
+e procedimentos está a cargo do aluno, porém, não deve haver acúmulo de operações dentro de uma
+mesma função/procedimento.
+Os arquivos hash.h e hash.c possuem as definições das constantes, a função hash (h) e a função para
+pegar as palavras de cada documento na linha.
+O limite de tempo para solução de cada caso de teste é de apenas um segundo. Além disso, o seu
+programa não pode ter memory leaks, ou seja, toda memória alocada pelo seu código deve ser corretamente
+liberada antes do final da execução. (Dica: utilize a ferramenta valgrind para se certificar de que seu código
+libera toda a memória alocada). Warnings ocasionará a redução na nota final. Assim sendo, utilize suas
+habilidades de programação e de análise de algoritmos para desenvolver um algoritmo correto e rápido!
+
+Entrada
+A entrada é dada por:
+• Número N de documentos que serão inseridos.
+• Em seguida, serão lidos N documentos, onde cada linha possui:
+– Nome do arquivo.
+– Palavras do documento.
+• Opção O do que fazer: “B” e “I”:
+– “B” buscar palavras no índice invertido, além de “B” é fornecido as palavras a serem buscadas.
+– “I” imprimir o índice invertido.
+Restrições
+O problema possui algumas restrições:
+• O número de documentos (N) é no máximo 100.
+• O número máximo de palavras buscadas é 100.
+• O número máximo de palavras por documento é de 1000.
+• O vocabulário é de no máximo 1000 palavras.
+• As palavras tem no máximo 20 caracteres.
+• O nome do documento tem no máximo 50 caracteres.
+Não haverá remoção de palavras (chave) ou documentos da hash.
+
+Saida: 
+A saída deve ser de acordo com a opção fornecida. Se for busca, basta informar os documentos com todas
+as palavras de forma ordenada. Se por acaso nenhum dos documentos tenham todas as palavras informadas,
+imprima “none”. Se for imprimir, imprima o índice invertido na ordem em que eles aparecem na hash.
+
+Exemplo de casos de teste
+Exemplo da saída esperada dada uma entrada:
+
+Caso Teste 1:
+Entrada
+3
+prog.doc algoritmo selecao
+aeds1.doc algoritmo estrutura dados
+darwin.doc selecao natural
+B algoritmo selecao
+
+Saida:
+prog.doc
+
+Caso Teste 2:
+Entrada 
+3
+prog.doc algoritmo selecao
+aeds1.doc algoritmo estrutura dados
+darwin.doc selecao natural
+B algoritmo natural
+
+Saida:
+none
+
+Caso Teste 3:
+Entrada
+3
+prog.doc algoritmo selecao
+aeds1.doc algoritmo estrutura dados
+darwin.doc selecao natural
+B algoritmo
+
+Saida:
+aeds1.doc
+prog.doc
+
+Caso Teste 4:
+Entrada
+3
+prog.doc algoritmo selecao
+aeds1.doc algoritmo estrutura dados
+darwin.doc selecao natural
+I
+
+Saida:
+dados - aeds1.doc
+selecao - prog.doc darwin.doc
+natural - darwin.doc
+algoritmo - prog.doc aeds1.doc
+estrutura - aeds1.doc
