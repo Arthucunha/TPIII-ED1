@@ -17,7 +17,6 @@ typedef struct
     NomeDocumento nomeDocumento;
 }TItem;
 
-typedef TItem Tabela[M];
 
 int h(char* chave, int m);
 int pegarChaves(Chave* chaves);
