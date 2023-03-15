@@ -52,3 +52,17 @@ bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocu
     }
     return true; //sucesso
 }
+
+int busca(IndiceInvertido indice, Chave chave){
+    int posicao = h(chave, 1000);
+    int tentativas = 0;
+
+    while(tentativas < M){
+        if(strcmp(indice[posicao].chave,chave)){
+            return posicao;
+        }
+        posicao++;
+        tentativas++;
+    }
+
+}
