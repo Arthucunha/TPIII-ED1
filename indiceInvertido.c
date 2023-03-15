@@ -180,3 +180,35 @@ void imprime(IndiceInvertido indice)
         }
     }
 }
+
+void quicksort(NomeDocumento* lista, int esq, int dir){
+    int i = esq, j = dir;
+    NomeDocumento pivo;
+    strcpy(pivo, lista[(esq + dir) / 2]);
+    while (i <= j) {
+        while (strcmp(lista[i], pivo) < 0) {
+            i++;
+        }
+        while (strcmp(lista[j], pivo) > 0) {
+            j--;
+        }
+        if (i <= j) {
+            NomeDocumento tmp;
+            strcpy(tmp, lista[i]);
+            strcpy(lista[i], lista[j]);
+            strcpy(lista[j], tmp);
+            i++;
+            j--;
+        }
+    }
+    if (esq < j) {
+        quicksort(lista, esq, j);
+    }
+    if (i < dir) {
+        quicksort(lista, i, dir);
+    }
+}
+
+void sort(NomeDocumento* lista, int n){
+    quicksort(lista, 0, n-1);
+}

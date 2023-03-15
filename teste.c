@@ -247,10 +247,44 @@ void imprimeIndice(IndiceInvertido indice, int tamanho)
     }
 }
 
+void quicksort(NomeDocumento* lista, int esq, int dir){
+    int i = esq, j = dir;
+    NomeDocumento pivo;
+    strcpy(pivo, lista[(esq + dir) / 2]);
+    while (i <= j) {
+        while (strcmp(lista[i], pivo) < 0) {
+            i++;
+        }
+        while (strcmp(lista[j], pivo) > 0) {
+            j--;
+        }
+        if (i <= j) {
+            NomeDocumento tmp;
+            strcpy(tmp, lista[i]);
+            strcpy(lista[i], lista[j]);
+            strcpy(lista[j], tmp);
+            i++;
+            j--;
+        }
+    }
+    if (esq < j) {
+        quicksort(lista, esq, j);
+    }
+    if (i < dir) {
+        quicksort(lista, i, dir);
+    }
+}
+
+void sort(NomeDocumento* lista, int n){
+    quicksort(lista, 0, n-1);
+}
+
+
+
 int main()
 {
 
-    IndiceInvertido indice;
+    /*IndiceInvertido indice;
 
     inicia(indice);
 
@@ -278,7 +312,16 @@ int main()
         printf("%s\n", documentos[i]);
     }
 
-    return 0;
+    */
+
+    NomeDocumento lista[100] = {"Beta", "Zeta", "Delta", "Alfa", "Epsilon"};
+    int n = 5;
+
+    sort(lista, n);
+
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", lista[i]);
+    }
 
     return 0;
 }

@@ -23,6 +23,7 @@ bool insereDocumento(IndiceInvertido, Chave, NomeDocumento);
 int busca(IndiceInvertido, Chave);
 int consulta(IndiceInvertido, Chave*, int, NomeDocumento*);
 void imprime(IndiceInvertido);
+void quicksort(NomeDocumento* lista, int esq, int dir);
 void sort(NomeDocumento*, int);
 
 #endif // !HASH_ABERTO
