@@ -265,10 +265,10 @@ int main()
     insereDocumento(indice, "chave3", "doc1");
     insereDocumento(indice, "chave3", "doc2");
     insereDocumento(indice, "chave3", "doc3");
-    imprimeIndice(indice, 5);
+    //imprimeIndice(indice, 5);
 
-    /*// Teste da função consulta()
-    Chave chaves[2] = {"chave1", "chave3"};
+    // Teste da função consulta()
+    Chave chaves[2] = {"chave2", "chave3"};
     NomeDocumento documentos[ND];
     int num_documentos = consulta(indice, chaves, 2, documentos);
 
@@ -278,7 +278,7 @@ int main()
         printf("%s\n", documentos[i]);
     }
 
-    return 0;*/
+    return 0;
 
     return 0;
 }

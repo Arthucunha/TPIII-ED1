@@ -13,6 +13,10 @@ void inicia(IndiceInvertido indiceInvertido)
     {
         indiceInvertido[i].n = 0;
         strcpy(indiceInvertido[i].chave, VAZIO);
+        /*if(strcmp(indiceInvertido[i].chave, VAZIO) == 0){
+            printf("Chave na inicia: %s -> ", indiceInvertido[i].chave);
+        }*/
+
         for (int j = 0; j < ND; j++)
         {
             strcpy(indiceInvertido[i].documentos[j], VAZIO);
@@ -22,52 +26,87 @@ void inicia(IndiceInvertido indiceInvertido)
 
 bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocumento)
 {
-    int posicao = h(chave, 1000);
-    int n = indice[posicao].n;
+    //int posicao = h(chave, 1000);
 
-    
+    int posicao = 0;
+    int n = indice[posicao].n;
 
     int indiceChave = busca(indice, chave);
 
-    if(indiceChave == -1){ //caso a chave nao exista na tabela, adicionar ela a tabela
-        if (indice[posicao].chave == VAZIO)
+    //printf("\n\n chegou \n\n");
+    //printf("\n\nValor função busca: %d\n\n", indiceChave);
+    //printf("\n\nValor função busca: %s\n\n", indice[indiceChave].chave);
+
+    if (indiceChave == -1)
+    { // caso a chave nao exista na tabela, adicionar ela a tabela
+
+        //printf("\n\ncondicao do if: %s\n\n", indice[posicao].chave);
+        if (strcmp(indice[posicao].chave, VAZIO) == 0)
         {
+
+            
             strcpy(indice[posicao].chave, chave);
+            printf("\n\n Entrou 2 com a chave %s\n\n", chave);
+            //printf("\n\n novo indice primeiro if = %s \n\n", indice[posicao].chave);
+            //printf("\n\n Inserido na posicao: %d \n\n", posicao);
             strcpy(indice[posicao].documentos[n], nomeDocumento);
             indice[posicao].n++;
         }
         else
         {
+            printf("\n\n Entrou 3 com a chave %s\n\n", chave);
             // tratamento por colisao por sondagem linear
             int novaPosicao = posicao + 1;
             while (indice[novaPosicao].chave != VAZIO && novaPosicao != posicao)
             {
                 novaPosicao = novaPosicao + 1;
-            }
-            if (indice[novaPosicao].chave == VAZIO)
-            {
-                strcpy(indice[posicao].chave, chave);
-                strcpy(indice[posicao].documentos[n], nomeDocumento);
-            }
-            else{
-                return false; //tabela cheia
+                if (novaPosicao == 999)
+                {
+                    novaPosicao = 0;
+                }
+                if (strcmp(indice[novaPosicao].chave, VAZIO) == 0)
+                {
+                    n = indice[novaPosicao].n;
+                    //printf("\n\n Entrou 4 \n\n");
+                    strcpy(indice[novaPosicao].chave, chave);
+                    //printf("\n\n novo indice = %s \n\n", indice[posicao].chave);
+                    strcpy(indice[novaPosicao].documentos[n], nomeDocumento);
+                    indice[novaPosicao].n++;
+                    break;
+                }
+                else
+                {
+                    // return false; // tabela cheia
+                }
             }
         }
     }
-    else{
-        strcpy(indice[posicao].documentos[n], nomeDocumento);
-        indice[posicao].n++;
+    else
+    {
+        n = indice[indiceChave].n;
+        strcpy(indice[indiceChave].documentos[n], nomeDocumento);
+        indice[indiceChave].n++;
     }
 
-    return true; //sucesso
+    return true; // sucesso
 }
 
-int busca(IndiceInvertido indice, Chave chave){
+int busca(IndiceInvertido indice, Chave chave)
+{
     int posicao = h(chave, 1000);
     int tentativas = 0;
 
-    while(tentativas < M){
-        if(strcmp(indice[posicao].chave,chave)){
+
+    while (tentativas < M)
+    {
+        if (posicao == 999)
+        {
+            posicao = 0;
+        }
+        //printf("\n\nposicao: %d\n\n", posicao);
+        if (strcmp(indice[posicao].chave, chave) == 0)
+        {
+            //printf("\n\nValor função busca: %d\n\n", indiceChave);
             return posicao;
         }
         posicao++;
@@ -76,62 +115,68 @@ int busca(IndiceInvertido indice, Chave chave){
     return -1;
 }
 
-int consulta(IndiceInvertido indice, Chave* chaves, int nChaves, NomeDocumento* documentos){
-
-    int cont = 0; //contador de documentos encontrados
-    int indices[nChaves];//Vetor para armazenar os indices de cada chave
-    bool encontrou;
-
-    for(int i = 0; i < nChaves; i++){
-        indices[i] = -1;
+int consulta(IndiceInvertido indice, Chave *chaves, int numChaves, NomeDocumento *documentos)
+{
+    // Inicializa a lista de documentos com o primeiro elemento da primeira chave
+    int posicao = busca(indice, chaves[0]);
+    if (posicao == -1)
+        return 0; // Chave não existe no índice
+    int numDocumentos = indice[posicao].n;
+    for (int i = 0; i < numDocumentos; i++)
+    {
+        strcpy(documentos[i], indice[posicao].documentos[i]);
     }
 
-    for (int i = 0; i < nChaves; i++){
-        encontrou = false;
-        for(int j = 0; j < M; j++){
-            if(strcmp(indice[j].chave, chaves[j]) == 0){
-                encontrou = true;
-                indices[i] = j;
-                break;
-            }
-        }
-        if(!encontrou){
-            return 0; //retorna 0 documentos encontrados
-        }
-    }
+    // Itera sobre as demais chaves
+    for (int i = 1; i < numChaves; i++)
+    {
+        posicao = busca(indice, chaves[i]);
+        if (posicao == -1)
+            return 0; // Chave não existe no índice
 
-    for(int i = 0; i < indice[indices[0]].n; i++){
-        //verifica se o documento contem a primeira chave
-        if(strcmp(indice[indices[0]].documentos[i], documentos[0]) == 0){
-            //verifica se o documento contem as demais chaves
-            for(int j = 1; j < nChaves; j++){
-                encontrou = false;
-                for(int k = 0; k < indice[indices[j]].n; k++){
-                    if(strcmp(indice[indices[j]].documentos[k], documentos[j]) == 0){
-                        encontrou = true;
-                        break;
-                    }
-                }
-                if(!encontrou){
+        // Verifica se o documento está presente na lista de documentos da chave atual
+        int j = 0;
+        while (j < numDocumentos)
+        {
+            bool encontrado = false;
+            for (int k = 0; k < indice[posicao].n; k++)
+            {
+                if (strcmp(documentos[j], indice[posicao].documentos[k]) == 0)
+                {
+                    encontrado = true;
                     break;
                 }
             }
-            if(encontrou){
-                //se o documento contem todas as chaves, adiciona ao vetor de documentos encontrados
-                strcpy(documentos[cont], indice[indices[0]].documentos[i]);
-                cont++;
+            if (!encontrado)
+            {
+                // Remove o documento da lista de documentos
+                numDocumentos--;
+                strcpy(documentos[j], documentos[numDocumentos]);
+            }
+            else
+            {
+                j++;
             }
         }
     }
 
-    return cont; //retorna o numero de documentos encontrados
+    return numDocumentos;
+}
 
-    /*
-    int main(){
-    IndiceInvertido indice;
-    Chave chaves[2] = {"chave1", "chave2"};
-    NomeDocumento documentos[ND];
-    int num_documentos_encontrados;
-    
-    */
+void imprime(IndiceInvertido indice)
+{
+    printf("Indice Invertido:\n");
+
+    for (int i = 0; i < M; i++)
+    {
+        if (strcmp(indice[i].chave, VAZIO) != 0)
+        {
+            printf("Chave: %s \n", indice[i].chave);
+            for (int j = 0; j < 51; j++)
+            {
+                printf("Documentos: %s \n", indice[i].documentos[j]);
+            }
+            printf("\n");
+        }
+    }
 }
