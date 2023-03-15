@@ -9,10 +9,6 @@ void inicia(IndiceInvertido indiceInvertido)
     {
         indiceInvertido[i].n = 0;
         strcpy(indiceInvertido[i].chave, VAZIO);
-        /*if(strcmp(indiceInvertido[i].chave, VAZIO) == 0){
-            printf("Chave na inicia: %s -> ", indiceInvertido[i].chave);
-        }*/
-
         for (int j = 0; j < ND; j++)
         {
             strcpy(indiceInvertido[i].documentos[j], VAZIO);
@@ -22,7 +18,7 @@ void inicia(IndiceInvertido indiceInvertido)
 
 bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocumento)
 {
-    int posicao = 0;
+    int posicao = h(chave, M);
     int n = indice[posicao].n;
 
     int indiceChave = busca(indice, chave);
@@ -55,10 +51,6 @@ bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocu
                     indice[novaPosicao].n++;
                     break;
                 }
-                else
-                {
-                    //return false; // tabela cheia
-                }
             }
         }
     }
@@ -83,10 +75,8 @@ int busca(IndiceInvertido indice, Chave chave)
         {
             posicao = 0;
         }
-        // printf("\n\nposicao: %d\n\n", posicao);
         if (strcmp(indice[posicao].chave, chave) == 0)
         {
-            // printf("\n\nValor função busca: %d\n\n", indiceChave);
             return posicao;
         }
         posicao++;
@@ -152,15 +142,15 @@ void imprime(IndiceInvertido indice)
     {
         if (strcmp(indice[i].chave, VAZIO) != 0)
         {
-            printf("\n%s -", indice[i].chave);
+            printf("%s -", indice[i].chave);
             for (int j = 0; j < indice[i].n; j++)
             {
                 printf(" %s", indice[i].documentos[j]); 
             }
+            printf("\n");
             
         }
     }
-    printf("\n");
 }
 
 void quicksort(NomeDocumento *lista, int esq, int dir)

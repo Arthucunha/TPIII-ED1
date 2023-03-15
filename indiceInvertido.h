@@ -27,16 +27,3 @@ void quicksort(NomeDocumento* lista, int esq, int dir);
 void sort(NomeDocumento*, int);
 
 #endif // !HASH_ABERTO
-
-/*
-indiceInvertido.h
-
-Definir as estruturas de dados necessárias
-Implementar as funções para manipulação dessas estruturas de dados:
-aloca
-libera
-insereDocumento
-busca
-consulta
-imprime
-*/
