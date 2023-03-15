@@ -8,4 +8,4 @@ indiceInvertido.o: indiceInvertido.c
 hash.o: hash.c
 	@gcc hash.c -c
 run:
-	@./exe < teste.in
+	@./exe < 1.in

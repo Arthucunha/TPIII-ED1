@@ -35,9 +35,19 @@ int main()
     {
         nChavesPesquisa = pegarChaves(chavesPesquisa);
         nDocumentos = consulta(indiceInvertido, chavesPesquisa, nChavesPesquisa, documentos);
-        for (int i = 0; i < nDocumentos; i++)
+        if (nDocumentos == 0)
         {
-            printf("%s ", documentos[i]);
+            printf("none\n");
+            return 0;
+        }
+        else
+        {
+            sort(documentos, nDocumentos);
+            for (int i = 0; i < nDocumentos; i++)
+            {
+                printf("%s ", documentos[i]);
+                printf("\n");
+            }
         }
         printf("\n");
     }

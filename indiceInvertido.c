@@ -74,7 +74,7 @@ bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocu
 
 int busca(IndiceInvertido indice, Chave chave)
 {
-    int posicao = h(chave, 1000);
+    int posicao = h(chave, M);
     int tentativas = 0;
 
     while (tentativas < M)
@@ -97,7 +97,6 @@ int busca(IndiceInvertido indice, Chave chave)
 
 int consulta(IndiceInvertido indice, Chave *chaves, int numChaves, NomeDocumento *documentos)
 {
-    
     // Inicializa a lista de documentos com o primeiro elemento da primeira chave
     int posicao = busca(indice, chaves[0]);
     if (posicao == -1){
@@ -105,9 +104,11 @@ int consulta(IndiceInvertido indice, Chave *chaves, int numChaves, NomeDocumento
         return 0; // Chave não existe no índice
     }
     int numDocumentos = indice[posicao].n;
+    
     for (int i = 0; i < numDocumentos; i++)
     {
         strcpy(documentos[i], indice[posicao].documentos[i]);
+        
     }
 
     // Itera sobre as demais chaves
@@ -142,14 +143,11 @@ int consulta(IndiceInvertido indice, Chave *chaves, int numChaves, NomeDocumento
             }
         }
     }
-
     return numDocumentos;
 }
 
 void imprime(IndiceInvertido indice)
 {
-    printf("Indice Invertido:\n");
-
     for (int i = 0; i < M; i++)
     {
         if (strcmp(indice[i].chave, VAZIO) != 0)
@@ -157,14 +155,12 @@ void imprime(IndiceInvertido indice)
             printf("\n%s -", indice[i].chave);
             for (int j = 0; j < indice[i].n; j++)
             {
-                if(strcmp(indice[j].chave, VAZIO) != 0){
-                    printf(" %s", indice[i].documentos[j]);
-                }
-                
+                printf(" %s", indice[i].documentos[j]); 
             }
-            printf("\n");
+            
         }
     }
+    printf("\n");
 }
 
 void quicksort(NomeDocumento *lista, int esq, int dir)
@@ -205,4 +201,5 @@ void quicksort(NomeDocumento *lista, int esq, int dir)
 void sort(NomeDocumento *lista, int n)
 {
     quicksort(lista, 0, n - 1);
+    
 }
