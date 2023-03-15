@@ -3,10 +3,8 @@
 
 int main() {
 
-    Tabela tabela;
     IndiceInvertido indiceInvertido;
-    inicializarTabela(tabela);
-    inicializarIndiceInvertido(indiceInvertido);
+    inicia(indiceInvertido);
     Chave* chaves;
     char nomeDocumento[51];
     int n, nChaves;
@@ -17,9 +15,11 @@ int main() {
         scanf("%s", nomeDocumento);
         nChaves = pegarChaves(chaves);
         for(int j = 0; j < nChaves; j++){
-            inserir(tabela, chaves, nomeDocumento);
+            
         }
     }
+
+    consulta(indiceInvertido, chaves, nChaves, nomeDocumento);
 
 
     return 0;

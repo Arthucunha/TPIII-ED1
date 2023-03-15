@@ -40,5 +40,5 @@ int pegarChaves(Chave* chaves) {
 
         token = strtok(NULL, " "); //obtendo o proximo token na string original
     }
-    return i;
+    return i; //retorna o numero de chaves
 }
