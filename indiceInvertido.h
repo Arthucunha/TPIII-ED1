@@ -6,7 +6,7 @@
 
 /* Os cabeçalhos de todas as funções e os TADs podem ser alterados */
 
-#define VAZIO " !!!!!!!!!!!!!!!!!!!!\0 "
+#define VAZIO "!!!!!!!!!!!!!!!!!!!!\0 "
 
 typedef struct {
     int n; // numero de documentos
