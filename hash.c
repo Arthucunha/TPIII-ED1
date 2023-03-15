@@ -4,7 +4,6 @@
 #include <string.h>
 
 
-
 int h(char * chave, int m) {
     float p[] = {0.8326030060567271, 0.3224428884580177, 
                  0.6964223353369197, 0.1966079596929834, 
@@ -31,6 +30,7 @@ int pegarChaves(Chave* chaves) {
     token = strtok(str, " "); // a funçao strtok aponta para a string que esta a frente da atual separadas por um espaco em brancp
 
     while (token != NULL) {
+        
         strcpy(chaves[i++], token); //strcpy pega o que contem na segunda string e copia pra primeira
         //inserir o item na lista adequada
 

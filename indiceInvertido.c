@@ -1,11 +1,6 @@
 #include "indiceInvertido.h"
 
 #include <string.h>
-/*
-indiceInvertido.c
-
-Implementar as funções definidas em indiceInvertido.h
-*/
 
 void inicia(IndiceInvertido indiceInvertido)
 {
