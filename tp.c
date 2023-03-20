@@ -1,20 +1,26 @@
 #include "indiceInvertido.h"
-#include "hash.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 int main()
 {
+    double tempoGasto = 0.0;
+
+    clock_t begin = clock();
 
     IndiceInvertido indiceInvertido;
     Chave chavesPesquisa[NN];
     Chave chavesEntrada[NN];
     NomeDocumento documentos[ND];
     char nomeDocumento[D];
-    int n, nChaves, nChavesPesquisa, nDocumentos;
+    int n, nChaves, nChavesPesquisa, nDocumentos, colisoes = 0;
     char opcao;
+
+
 
     inicia(indiceInvertido);
 
@@ -26,7 +32,7 @@ int main()
         nChaves = pegarChaves(chavesEntrada);
         for (int j = 0; j < nChaves; j++)
         {
-            insereDocumento(indiceInvertido, chavesEntrada[j], nomeDocumento);
+            insereDocumento(indiceInvertido, chavesEntrada[j], nomeDocumento, &colisoes);
         }
     }
 
@@ -59,6 +65,9 @@ int main()
     {
         printf("\nOpção invalida, reinicie o programa e digite uma opção valida\n");
     }
+
+    clock_t end = clock();
+    tempoGasto += (double)(end - begin) / CLOCKS_PER_SEC;
 
     return 0;
 }

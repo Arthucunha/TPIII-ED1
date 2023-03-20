@@ -16,7 +16,7 @@ void inicia(IndiceInvertido indiceInvertido)
     }
 }
 
-bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocumento)
+bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocumento, int *contadorColisoes)
 {
     int posicao = h(chave, M);
     int n = indice[posicao].n;
@@ -38,6 +38,7 @@ bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocu
             int novaPosicao = posicao + 1;
             while (indice[novaPosicao].chave != VAZIO && novaPosicao != posicao)
             {
+                contadorColisoes += 1;
                 novaPosicao = novaPosicao + 1;
                 if (novaPosicao == 999)
                 {
