@@ -38,7 +38,7 @@ bool insereDocumento(IndiceInvertido indice, Chave chave, NomeDocumento nomeDocu
             int novaPosicao = posicao + 1;
             while (indice[novaPosicao].chave != VAZIO && novaPosicao != posicao)
             {
-                contadorColisoes += 1;
+                *contadorColisoes += 1;
                 novaPosicao = novaPosicao + 1;
                 if (novaPosicao == 999)
                 {

@@ -55,7 +55,7 @@ int main()
                 printf("\n");
             }
         }
-        printf("\n");
+        //printf("\n");
     }
     else if (opcao == 'I')
     {
@@ -65,7 +65,7 @@ int main()
     {
         printf("\nOpção invalida, reinicie o programa e digite uma opção valida\n");
     }
-
+    //printf("Colisoes finais: %d\n",colisoes);
     clock_t end = clock();
     tempoGasto += (double)(end - begin) / CLOCKS_PER_SEC;
 
